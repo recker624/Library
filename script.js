@@ -8,12 +8,21 @@ let addBookBtn = document.querySelector(".library .add-btn");
 let addFormBtn = document.querySelector("form .add button");
 let closeFormBtn = document.querySelector("form .cancel-btn")
 let overlay = document.querySelector(".overlay");
+let deleteBookCardBtn;
 
 addBookBtn.addEventListener("click", addBookToLibrary);
 addFormBtn.addEventListener("click", addBookForm);
 closeFormBtn.addEventListener("click", closeBookForm);
 
-function Book(title, author, pages, isRead) {
+//add event listener to delete btn in book-card
+document.body.addEventListener("click", (e) => {
+  if(e.target.className=="delete") {
+    e.target.parentNode.remove();
+  }
+})
+
+
+function Book({title="Title", author="Author", pages=0, isRead=false}) {
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -22,6 +31,7 @@ function Book(title, author, pages, isRead) {
 
 //"add" button in form
 function addBookForm(event) {
+  //prevent the form to submit data
   event.preventDefault();
 
   let title, author, pages, isRead;
@@ -31,7 +41,7 @@ function addBookForm(event) {
   pages  = form.querySelector("#pages").value;
   isRead = form.querySelector("#read-status").checked;
 
-  let book = new Book(title, author, pages, isRead);
+  let book = new Book({title, author, pages, isRead});
   myLibrary.push(book);
   formContainer.style.visibility = "hidden";
 
@@ -61,12 +71,26 @@ function createBookCard() {
   let preposition = document.createElement("div");
   let bookAuthor  = document.createElement("div");
   let pages       = document.createElement("div");
-  let read        = document.createElement("div");
-  let notRead     = document.createElement("div");
+  let readStatus  = document.createElement("div");
   let deleteCard  = document.createElement("div");
 
-  
-
   newBookCard.classList.add("book-card");
+  readStatus.classList.add(latestBook.isRead ? "read-status" : "not-read-status");
+  deleteCard.classList.add("delete");
+
+  bookTitle.innerText   = latestBook.title;
+  preposition.innerText = "by";
+  bookAuthor.innerText  = latestBook.author;
+  pages.innerText       = latestBook.pages;
+  readStatus.innerText  = latestBook.isRead ? "Read" : "Not Read";
+  deleteCard.innerText  = "Delete";
+
+  newBookCard.append(bookTitle);
+  newBookCard.append(preposition);
+  newBookCard.append(bookAuthor);
+  newBookCard.append(pages);
+  newBookCard.append(readStatus);
+  newBookCard.append(deleteCard);
+
   addBookBtn.before(newBookCard);
 }

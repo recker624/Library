@@ -22,13 +22,14 @@ nav div{
 }
 
 .library {
-   width: 80%;
+   width: 65%;
    margin: 0 auto;
    margin-top: 100px;
 
    display: flex;
    flex-wrap: wrap;
-   gap: 3%;
+   justify-content: center;
+   gap: 2vw;
 }
 
 .add-btn {
@@ -43,6 +44,7 @@ nav div{
 
    transition: all 50ms ease-out;
    box-shadow: 0 0 5px 3px #cccccc8c;
+   user-select: none;
 }
 
 .add-btn div {
@@ -64,22 +66,37 @@ nav div{
    border: 2px solid #ccc;
    border-radius: 0.8em;
    box-shadow: 0 0 5px 3px #cccccc8c;
+   padding: 20px;
 
    display: flex;
    flex-wrap: wrap;
    flex-direction: column;
    justify-content: space-around;
-
+   user-select: none;
 }
 
 .book-card div {
    width: 100%;
    text-align: center;
+   font-size: 1.3rem;
+   margin: 0;
+   padding: 0;
 }
 
-.book-card .status {
-   display: flex;
-   justify-content: space-evenly;
+.book-card .read-status {
+   background-color: #10e710;
+}
+
+.book-card .not-read-status {
+   background-color: #e8f71b;
+}
+
+.book-card .delete {
+   background-color: lightcoral;
+}
+
+.book-card .delete:hover {
+   cursor: pointer;
 }
 
 .container {
