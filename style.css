@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 * {
    padding: 0;
    margin: 0;
    box-sizing: border-box;
+}
+
+@font-face {
+   font-family: "fancy-matter";
+   src: url(/Fonts/FancyMatterPersonalUse-lg5Ve.otf);
+}
+
+@font-face {
+   font-family: "mandhor";
+   src: url(/Fonts/Mandhor-ALEmp.otf);
 }
 
 body {
@@ -66,14 +78,15 @@ nav div{
    border: 2px solid #ccc;
    border-radius: 0.8em;
    box-shadow: 0 0 5px 3px #cccccc8c;
-   padding: 20px;
+   padding: 20px 20px 0px 20px;
 
    display: flex;
    flex-wrap: wrap;
    flex-direction: column;
-   justify-content: space-around;
-   user-select: none;
-}
+   justify-content: space-between;
+
+   user-select: none;  
+}  
 
 .book-card div {
    width: 100%;
@@ -83,20 +96,78 @@ nav div{
    padding: 0;
 }
 
+.book-card .title{
+   font-family: "mandhor";
+   font-size: 1.5rem;
+}
+
+.book-card .preposition {
+   font-size: 1rem;
+   font-family: "fancy-matter";
+   font-weight: bold;
+}
+
+.book-card .author {
+   font-family: "mandhor";
+   font-size: 1.5rem;
+}
+
+.book-card .pages {
+   font-family: 'poppins';
+   font-size: 1.2rem;
+}
+
 .book-card .read-status {
-   background-color: #10e710;
+   background: url("/Images/Paint_Stroke1.png") no-repeat center center;
+   background-size: cover;
+   font-family: "mandhor";
+   color: white;
 }
 
 .book-card .not-read-status {
-   background-color: #e8f71b;
+   background: url("/Images/Paint_Stroke1.png") no-repeat center center;
+   background-size: cover;
+   font-family: "mandhor";
+   color: white;
 }
 
 .book-card .delete {
-   background-color: lightcoral;
+   background-color: #f77272;
+   align-self: flex-end;
+   color: white;
+   height: 15%;
+
+   border-radius: 1em 1em 0 0;
+
+   position: relative;
+}
+
+.book-card .delete span{
+   position: absolute;
+   left: 40%;
+   top: 0%;
+	transition: transform .25s, opacity .25s;
+	opacity: .7;
+	cursor: pointer;
+	font-size: 2.5rem;
+   font-weight: 900;
+	font-family: serif;
+	line-height: 1;
+}
+
+.book-card .delete span:before{
+	content: "\d7";
+}
+
+.book-card .delete span:hover{
+   opacity: 1;
+	transform: rotate(90deg);
+   color: white
 }
 
 .book-card .delete:hover {
    cursor: pointer;
+   background-color: red;
 }
 
 .container {
@@ -124,16 +195,27 @@ nav div{
 
    display: flex;
    flex-flow: column;
+   align-items: center;
+   background-color: white;
 }
 
 .title, 
 .author, 
-.pages, 
-.read-status,
- button {
-   margin: 5px 0px;
+.pages {
+   margin: 20px 0px;
    margin-bottom: 15px;
    user-select: none;
+}
+
+.read-status {
+ margin: 10px 0;
+}
+
+.title, 
+.author, 
+.pages {
+   position: relative;
+   width: 100%;
 }
 
 .container label {
@@ -144,7 +226,6 @@ nav div{
 .pages input{
    font-size: 1rem;
    padding: 5px;
-   width: 30%;
    box-sizing: border-box;
 }
 
@@ -153,60 +234,92 @@ nav div{
 }
 
 .container .heading {
-   margin: 10px auto;
-   margin-bottom: 20px;
+   font-family: 'poppins';
    font-size: 1.5rem;
+   color: #444444;
+
+   margin: 10px auto;
+   margin-bottom: 5px;
    user-select: none;
 }
 
 
-.container input[type="text"] {
+.container input[type="text"],
+.container input[type="number"] {
    width: 100%;
-   height: 30px;
+   height: 40px;
    display: block;
    padding: 1em;
+   outline: none;
    border: 2px solid #ccc;
    border-radius: 1em;
+   
+   font-family: "poppins";
+   font-size: 1rem;
+   color: #7e7e7e;
+
+   transition: border 0.5s, color 0.5s;
 }
 
-.container input[type="number"] {
-   height: 30px;
-   display: block;
-
-   border: 2px solid #ccc;
-   border-radius: 1em;
-} 
+.container input[type="text"]:focus,
+.container input[type="number"]:focus {
+   outline: none;
+   border: 2px solid #818181;
+   color: #4b4b4b;
+}
 
 .container input[type="checkbox"] {
    transform: scale(1.2);
    padding: 3px;
 }
 
+.container .title label,
+.container .author label,
+.container .pages label {
+   position: absolute;
+   top: -12px;
+   left: 15px;
+
+   font-family: 'poppins';
+   font-size: 1rem;
+   color: #797979;
+   background-color: white;
+}
+
 .container .read-status label {
    display: inline-block;
    margin-right: 5px;
+   margin-left: 5px;
+   font-family: "poppins";
+   color: #444;
+   font-size: 1rem;
+
+   user-select: none;
 }
 
 .container .add button {
    border: 2px solid #ccc;
    border-radius: 0.5em;
 
-   background-color: #23ff23;
+   background-color: #22db22;
    color: white;
 
-   font-size: 1rem;
-   width: 100px;
-   height: 30px;
+   font-family: "poppins";
+   font-size: 1.2rem;
+   width: 110px;
+   height: 35px;
 }
 
 .container .add button:hover {
    cursor: pointer;
-   background-color: #1fe01f;
+   background-color: #18ad18;
 }
 
 .container .add {
    margin: 0 auto;
 }
+
+
 
 .cancel-btn {
    color: #a0a0a0;

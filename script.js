@@ -3,24 +3,31 @@
 let myLibrary = [];
 
 let formContainer = document.querySelector('.container');
-let form = document.querySelector("form");
-let addBookBtn = document.querySelector(".library .add-btn");
-let addFormBtn = document.querySelector("form .add button");
-let closeFormBtn = document.querySelector("form .cancel-btn")
-let overlay = document.querySelector(".overlay");
+let form          = document.querySelector("form");
+let addBookBtn    = document.querySelector(".library .add-btn");
+let addFormBtn    = document.querySelector("form .add button");
+let closeFormBtn  = document.querySelector("form .cancel-btn")
+let overlay       = document.querySelector(".overlay");
 let deleteBookCardBtn;
 
 addBookBtn.addEventListener("click", addBookToLibrary);
 addFormBtn.addEventListener("click", addBookForm);
 closeFormBtn.addEventListener("click", closeBookForm);
 
-//add event listener to delete btn in book-card
+//delete bookcard from both, webpage and myLibrary Array
 document.body.addEventListener("click", (e) => {
-  if(e.target.className=="delete") {
-    e.target.parentNode.remove();
+  if(e.target.className=="delete" || e.target.className=="delete-cross") {
+    let bookTitle = e.target.closest(".book-card").querySelector(".title").value;
+    for(let i=0; i < myLibrary.length; i++) {
+      let item = myLibrary[i];
+      if(item.title == bookTitle){
+        myLibrary.splice(i, 1);
+      }
+    }
+    e.target.closest(".book-card").remove();
   }
+  console.log(myLibrary);
 })
-
 
 function Book({title="Title", author="Author", pages=0, isRead=false}) {
   this.title = title;
@@ -40,6 +47,17 @@ function addBookForm(event) {
   author = form.querySelector("#author").value;
   pages  = form.querySelector("#pages").value;
   isRead = form.querySelector("#read-status").checked;
+
+  for(let i = 0; i < myLibrary.length; i++) {
+    let item = myLibrary[i];
+    if(item.title == title){
+      alert(`Oops! ${title} has already been added!`);
+
+      formContainer.style.visibility = "hidden";
+      overlay.classList.remove("active");
+      return;
+    }
+  } 
 
   let book = new Book({title, author, pages, isRead});
   myLibrary.push(book);
@@ -75,15 +93,22 @@ function createBookCard() {
   let deleteCard  = document.createElement("div");
 
   newBookCard.classList.add("book-card");
+  preposition.classList.add("preposition");
+  bookAuthor.classList.add("author");
+  bookTitle.classList.add("title");
+  pages.classList.add("pages");
   readStatus.classList.add(latestBook.isRead ? "read-status" : "not-read-status");
   deleteCard.classList.add("delete");
 
   bookTitle.innerText   = latestBook.title;
   preposition.innerText = "by";
   bookAuthor.innerText  = latestBook.author;
-  pages.innerText       = latestBook.pages;
+  pages.innerText       = "Pages: " + latestBook.pages;
   readStatus.innerText  = latestBook.isRead ? "Read" : "Not Read";
-  deleteCard.innerText  = "Delete";
+
+  let span = document.createElement("span");
+  span.classList.add("delete-cross");
+  deleteCard.append(span);
 
   newBookCard.append(bookTitle);
   newBookCard.append(preposition);
