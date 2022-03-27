@@ -114,7 +114,7 @@ nav div{
 
 .book-card .pages {
    font-family: 'poppins';
-   font-size: 1.2rem;
+   font-size: 1.1rem;
 }
 
 .book-card .read-status {
@@ -124,11 +124,8 @@ nav div{
    color: white;
 }
 
-.book-card .not-read-status {
-   background: url("/Images/Paint_Stroke1.png") no-repeat center center;
-   background-size: cover;
-   font-family: "mandhor";
-   color: white;
+.book-card .read-status:hover {
+   cursor: pointer;
 }
 
 .book-card .delete {

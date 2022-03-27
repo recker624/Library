@@ -17,7 +17,9 @@ closeFormBtn.addEventListener("click", closeBookForm);
 //delete bookcard from both, webpage and myLibrary Array
 document.body.addEventListener("click", (e) => {
   if(e.target.className=="delete" || e.target.className=="delete-cross") {
-    let bookTitle = e.target.closest(".book-card").querySelector(".title").value;
+    let bookCard = e.target.closest(".book-card");
+    let bookTitle = bookCard.querySelector(".title").innerText;
+
     for(let i=0; i < myLibrary.length; i++) {
       let item = myLibrary[i];
       if(item.title == bookTitle){
@@ -26,7 +28,20 @@ document.body.addEventListener("click", (e) => {
     }
     e.target.closest(".book-card").remove();
   }
-  console.log(myLibrary);
+
+  //toogle read-status of book
+  if(e.target.className == "read-status"){
+    let bookTitle = e.target.closest(".book-card").querySelector(".title").innerText;
+
+    for(let i=0; i < myLibrary.length; i++) {
+      let item = myLibrary[i];
+      if(item.title == bookTitle){
+        item.isRead = !item.isRead;
+        e.target.innerText = (item.isRead == true) ? "Read" : "Not Read";
+      }
+    }
+  }
+
 })
 
 function Book({title="Title", author="Author", pages=0, isRead=false}) {
@@ -97,7 +112,7 @@ function createBookCard() {
   bookAuthor.classList.add("author");
   bookTitle.classList.add("title");
   pages.classList.add("pages");
-  readStatus.classList.add(latestBook.isRead ? "read-status" : "not-read-status");
+  readStatus.classList.add("read-status");
   deleteCard.classList.add("delete");
 
   bookTitle.innerText   = latestBook.title;
