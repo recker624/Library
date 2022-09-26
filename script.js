@@ -104,11 +104,23 @@ function addBookToLibrary() {
 //"close" button in form
 function closeBookForm() {
   formContainer.style.visibility = "hidden";
+  overlay.classList.remove("active");
+
   form.querySelector("#title").value  = "";
   form.querySelector("#author").value = "";
   form.querySelector("#pages").value  = "";
   form.querySelector("#read-status").checked = false;
-  overlay.classList.remove("active");
+
+  if(formContainer.querySelector(".title .validation_area .required"))
+    formContainer.querySelector(".title .validation_area .required").remove();
+  if(formContainer.querySelector(".author .validation_area .required"))
+    formContainer.querySelector(".author .validation_area .required").remove();
+  if(formContainer.querySelector(".pages .validation_area .required"))
+    formContainer.querySelector(".pages .validation_area .required").remove();
+
+  formContainer.querySelector("#title").classList.remove("error-input-box", "correct-input-box");
+  formContainer.querySelector("#author").classList.remove("error-input-box", "correct-input-box");
+  formContainer.querySelector("#pages").classList.remove("error-input-box", "correct-input-box");
 }
 
 function createBookCard() {
@@ -168,13 +180,13 @@ function validateForm() {
     formContainer.querySelector(".title .validation_area").classList.remove("error-validation-area");
     titleInput.classList.remove("error-input-box");
     
-    formError = true;
+    formError = false;
   } 
   else if(titleInput.value==""){
     titleInput.classList.remove("error-input-box correct-input-box");
     formContainer.querySelector(".title .validation_area").classList.remove("correct-validation-area error-validation-area");
     
-    formError = false;
+    formError = true;
   }
 
   if(authorInput.validity.patternMismatch) {
@@ -191,13 +203,13 @@ function validateForm() {
     formContainer.querySelector(".author .validation_area").classList.add("correct-validation-area");
     formContainer.querySelector(".author .validation_area").classList.remove("error-validation-area");
     
-    formError = true;
+    formError = false;
   } 
   else if(authorInput.value==""){
     authorInput.classList.remove("error-input-box correct-input-box");
     formContainer.querySelector(".author .validation_area").classList.remove("correct-validation-area error-validation-area");
     
-    formError = false;
+    formError = true;
   }
 
   if(pagesInput.validity.rangeUnderflow || pagesInput.validity.rangeOverflow) {
@@ -214,13 +226,13 @@ function validateForm() {
     formContainer.querySelector(".pages .validation_area").classList.add("correct-validation-area");
     formContainer.querySelector(".pages .validation_area").classList.remove("error-validation-area");
     
-    formError = true;
+    formError = false;
   } 
   else if(pagesInput.value=="") {
     pagesInput.classList.remove("error-input-box correct-input-box");
     formContainer.querySelector(".pages .validation_area").classList.remove("correct-validation-area error-validation-area");
     
-    formError = false;
+    formError = true;
   }
 }
 
@@ -233,31 +245,37 @@ function validateSubmitForm() {
       formError = true;
 
       const required = document.createElement("div");
-      required.classList.add("error-validation-area");
-      required.innerText = "This is required field!";
-      input.before(required);
+      required.classList.add("error-validation-area","required");
+      required.innerHTML = "<span>&#8226;</span> This is required field!";
+      return required;
     }
   }
 
   if(titleInput.validity.valueMissing) {
-    if(!document.querySelector(".error-validation-area"))
-      _checkMissingError(titleInput);
+    if(!document.querySelector(".title .error-validation-area")){
+      let required =  _checkMissingError(titleInput);
+      formContainer.querySelector(".title .validation_area").append(required);
+    }
   }
   else {
     formError = false;
   }
 
   if(authorInput.validity.valueMissing) {
-    if(!document.querySelector(".error-validation-area"))
-      _checkMissingError(authorInput);
+    if(!document.querySelector(".author .error-validation-area")){
+      let required =  _checkMissingError(authorInput);
+      formContainer.querySelector(".author .validation_area").append(required);
+    }
   }
   else {
     formError = false;
   }
 
   if(pagesInput.validity.valueMissing) {
-    if(!document.querySelector(".error-validation-area"))
-      _checkMissingError(pagesInput);
+    if(!document.querySelector(".pages .error-validation-area")){
+      let required =  _checkMissingError(pagesInput);
+      formContainer.querySelector(".pages .validation_area").append(required);
+    }
   }
   else {
     formError = false;
