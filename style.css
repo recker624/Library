@@ -4,6 +4,7 @@
    padding: 0;
    margin: 0;
    box-sizing: border-box;
+   user-select: none;
 }
 
 @font-face {
@@ -56,7 +57,6 @@ nav div{
 
    transition: all 50ms ease-out;
    box-shadow: 0 0 5px 3px #cccccc8c;
-   user-select: none;
 }
 
 .add-btn div {
@@ -85,7 +85,6 @@ nav div{
    flex-direction: column;
    justify-content: space-between;
 
-   user-select: none;  
 }  
 
 .book-card div {
@@ -172,7 +171,7 @@ nav div{
    height: 50vh;
    left: 40%;
    top: 50%;
-   /* border: 2px solid black; */
+
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -183,8 +182,8 @@ nav div{
 
 .container form {
    position: relative;
-   min-width: 300px;
-   max-width: 300px;
+   min-width: 350px;
+   max-width: 400px;
 
    border: 5px solid #c7c7c7;
    border-radius: 1em;
@@ -201,7 +200,6 @@ nav div{
 .pages {
    margin: 20px 0px;
    margin-bottom: 15px;
-   user-select: none;
 }
 
 .read-status {
@@ -237,7 +235,6 @@ nav div{
 
    margin: 10px auto;
    margin-bottom: 5px;
-   user-select: none;
 }
 
 
@@ -283,6 +280,44 @@ nav div{
    background-color: white;
 }
 
+ .validation_area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  margin-top: 5px;
+  margin-left: 5px;
+
+  font-family: 'poppins';
+  font-size: 0.7rem;
+  color: #5f5f5f;
+}
+.validation_area div {
+
+}
+
+.validation_area span {
+  font-size: 0.9rem;
+}
+
+.error-input-box {
+  border-color: #ff1b1b;
+}
+
+.correct-input-box {
+  border-color: #27e427;
+}
+
+.error-validation-area {
+  color: #f51e1e;
+}
+
+.correct-validation-area {
+  color: #27e427; 
+}
+
 .container .read-status label {
    display: inline-block;
    margin-right: 5px;
@@ -290,8 +325,6 @@ nav div{
    font-family: "poppins";
    color: #444;
    font-size: 1rem;
-
-   user-select: none;
 }
 
 .container .add button {
@@ -320,9 +353,6 @@ nav div{
 
 .cancel-btn {
    color: #a0a0a0;
-   user-select: none;
-   -moz-user-select: none;
-   -webkit-user-select: none;
    position: absolute;
 
    font-size: 1.3rem;

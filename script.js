@@ -2,17 +2,28 @@
 
 let myLibrary = [];
 
-let formContainer = document.querySelector('.container');
-let form          = document.querySelector("form");
-let addBookBtn    = document.querySelector(".library .add-btn");
-let addFormBtn    = document.querySelector("form .add button");
-let closeFormBtn  = document.querySelector("form .cancel-btn")
-let overlay       = document.querySelector(".overlay");
+const formContainer = document.querySelector('.container');
+const form          = document.querySelector("form");
+const addBookBtn    = document.querySelector(".library .add-btn");
+const addFormBtn    = document.querySelector("form .add button");
+const closeFormBtn  = document.querySelector("form .cancel-btn")
+const overlay       = document.querySelector(".overlay");
+
+const titleInput    = formContainer.querySelector(".title input");
+const authorInput   = formContainer.querySelector(".author input");
+const pagesInput    = formContainer.querySelector(".pages input");
+
+let formError = false;
 let deleteBookCardBtn;
 
 addBookBtn.addEventListener("click", addBookToLibrary);
-addFormBtn.addEventListener("click", addBookForm);
+pagesInput.addEventListener("input", validateForm);
+addFormBtn.addEventListener("click",  validateSubmitForm);
 closeFormBtn.addEventListener("click", closeBookForm);
+addFormBtn.addEventListener("click", addBookForm);
+titleInput.addEventListener("input", validateForm);
+authorInput.addEventListener("input", validateForm);
+
 
 //delete bookcard from both, webpage and myLibrary Array
 document.body.addEventListener("click", (e) => {
@@ -53,34 +64,34 @@ function Book({title="Title", author="Author", pages=0, isRead=false}) {
 
 //"add" button in form
 function addBookForm(event) {
-  //prevent the form to submit data
   event.preventDefault();
+  if(!formError) {
+    //prevent the form to submit data
+    let title, author, pages, isRead;
 
-  let title, author, pages, isRead;
+    title  = form.querySelector("#title").value;
+    author = form.querySelector("#author").value;
+    pages  = form.querySelector("#pages").value;
+    isRead = form.querySelector("#read-status").checked;
 
-  title  = form.querySelector("#title").value;
-  author = form.querySelector("#author").value;
-  pages  = form.querySelector("#pages").value;
-  isRead = form.querySelector("#read-status").checked;
+    for(let i = 0; i < myLibrary.length; i++) {
+      let item = myLibrary[i];
+      if(item.title == title){
+        alert(`Oops! ${title} has already been added!`);
 
-  for(let i = 0; i < myLibrary.length; i++) {
-    let item = myLibrary[i];
-    if(item.title == title){
-      alert(`Oops! ${title} has already been added!`);
+        formContainer.style.visibility = "hidden";
+        overlay.classList.remove("active");
+        return;
+      }
+    } 
 
-      formContainer.style.visibility = "hidden";
-      overlay.classList.remove("active");
-      return;
-    }
-  } 
+    let book = new Book({title, author, pages, isRead});
+    myLibrary.push(book);
 
-  let book = new Book({title, author, pages, isRead});
-  myLibrary.push(book);
-  formContainer.style.visibility = "hidden";
-
-  overlay.classList.remove("active");
-
-  createBookCard();
+    formContainer.style.visibility = "hidden";
+    overlay.classList.remove("active");
+    createBookCard();
+  }
 }
 
 //main button for adding books to library
@@ -93,6 +104,10 @@ function addBookToLibrary() {
 //"close" button in form
 function closeBookForm() {
   formContainer.style.visibility = "hidden";
+  form.querySelector("#title").value  = "";
+  form.querySelector("#author").value = "";
+  form.querySelector("#pages").value  = "";
+  form.querySelector("#read-status").checked = false;
   overlay.classList.remove("active");
 }
 
@@ -133,4 +148,118 @@ function createBookCard() {
   newBookCard.append(deleteCard);
 
   addBookBtn.before(newBookCard);
+}
+
+//form validation
+//add live form validation function
+function validateForm() {
+  //check for validity
+  if(titleInput.validity.patternMismatch) {
+    titleInput.classList.add("error-input-box");
+    formContainer.querySelector(".title .validation_area").classList.add("error-validation-area");
+    formContainer.querySelector(".title .validation_area").classList.remove("correct-validation-area");
+    titleInput.classList.remove("correct-input-box");
+    
+    formError = true;
+  } 
+  else if(titleInput.value!=""){
+    titleInput.classList.add("correct-input-box");
+    formContainer.querySelector(".title .validation_area").classList.add("correct-validation-area");
+    formContainer.querySelector(".title .validation_area").classList.remove("error-validation-area");
+    titleInput.classList.remove("error-input-box");
+    
+    formError = true;
+  } 
+  else if(titleInput.value==""){
+    titleInput.classList.remove("error-input-box correct-input-box");
+    formContainer.querySelector(".title .validation_area").classList.remove("correct-validation-area error-validation-area");
+    
+    formError = false;
+  }
+
+  if(authorInput.validity.patternMismatch) {
+    authorInput.classList.add("error-input-box");
+    authorInput.classList.remove("correct-input-box");
+    formContainer.querySelector(".author .validation_area").classList.add("error-validation-area");
+    formContainer.querySelector(".author .validation_area").classList.remove("correct-validation-area");
+    
+    formError = true;
+  } 
+  else if(authorInput.value!=""){
+    authorInput.classList.add("correct-input-box");
+    authorInput.classList.remove("error-input-box");
+    formContainer.querySelector(".author .validation_area").classList.add("correct-validation-area");
+    formContainer.querySelector(".author .validation_area").classList.remove("error-validation-area");
+    
+    formError = true;
+  } 
+  else if(authorInput.value==""){
+    authorInput.classList.remove("error-input-box correct-input-box");
+    formContainer.querySelector(".author .validation_area").classList.remove("correct-validation-area error-validation-area");
+    
+    formError = false;
+  }
+
+  if(pagesInput.validity.rangeUnderflow || pagesInput.validity.rangeOverflow) {
+    pagesInput.classList.add("error-input-box");
+    pagesInput.classList.remove("correct-input-box");
+    formContainer.querySelector(".pages .validation_area").classList.add("error-validation-area");
+    formContainer.querySelector(".pages .validation_area").classList.remove("correct-validation-area");
+
+    formError = true;
+  }
+  else if(pagesInput.value!="") {
+    pagesInput.classList.add("correct-input-box");
+    pagesInput.classList.remove("error-input-box");
+    formContainer.querySelector(".pages .validation_area").classList.add("correct-validation-area");
+    formContainer.querySelector(".pages .validation_area").classList.remove("error-validation-area");
+    
+    formError = true;
+  } 
+  else if(pagesInput.value=="") {
+    pagesInput.classList.remove("error-input-box correct-input-box");
+    formContainer.querySelector(".pages .validation_area").classList.remove("correct-validation-area error-validation-area");
+    
+    formError = false;
+  }
+}
+
+function validateSubmitForm() {
+  //check for validity
+  function _checkMissingError(input) {
+    if(input.validity.valueMissing) {
+      input.classList.add("error-input-box");
+      
+      formError = true;
+
+      const required = document.createElement("div");
+      required.classList.add("error-validation-area");
+      required.innerText = "This is required field!";
+      input.before(required);
+    }
+  }
+
+  if(titleInput.validity.valueMissing) {
+    if(!document.querySelector(".error-validation-area"))
+      _checkMissingError(titleInput);
+  }
+  else {
+    formError = false;
+  }
+
+  if(authorInput.validity.valueMissing) {
+    if(!document.querySelector(".error-validation-area"))
+      _checkMissingError(authorInput);
+  }
+  else {
+    formError = false;
+  }
+
+  if(pagesInput.validity.valueMissing) {
+    if(!document.querySelector(".error-validation-area"))
+      _checkMissingError(pagesInput);
+  }
+  else {
+    formError = false;
+  }
 }
