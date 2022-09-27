@@ -9,12 +9,12 @@
 
 @font-face {
    font-family: "fancy-matter";
-   src: url(/Fonts/FancyMatterPersonalUse-lg5Ve.otf);
+   src: url('/Library/Fonts/FancyMatterPersonalUse-lg5Ve.otf');
 }
 
 @font-face {
    font-family: "mandhor";
-   src: url(/Fonts/Mandhor-ALEmp.otf);
+   src: url('/Library/Fonts/Mandhor-ALEmp.otf');
 }
 
 body {
@@ -117,7 +117,7 @@ nav div{
 }
 
 .book-card .read-status {
-   background: url("/Images/Paint_Stroke1.png") no-repeat center center;
+   background: url('/Library/Images/Paint_Stroke1.png') no-repeat center center;
    background-size: cover;
    font-family: "mandhor";
    color: white;
@@ -156,9 +156,9 @@ nav div{
 }
 
 .book-card .delete span:hover{
-   opacity: 1;
+  opacity: 1;
 	transform: rotate(90deg);
-   color: white
+  color: white
 }
 
 .book-card .delete:hover {
@@ -307,7 +307,7 @@ nav div{
 }
 
 .correct-input-box {
-  border-color: #27e427;
+  border: 2px solid #27e427;
 }
 
 .error-validation-area {

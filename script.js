@@ -9,9 +9,9 @@ const addFormBtn    = document.querySelector("form .add button");
 const closeFormBtn  = document.querySelector("form .cancel-btn")
 const overlay       = document.querySelector(".overlay");
 
-const titleInput    = formContainer.querySelector(".title input");
-const authorInput   = formContainer.querySelector(".author input");
-const pagesInput    = formContainer.querySelector(".pages input");
+const titleInput    = document.getElementById("title");
+const authorInput   = document.getElementById("author");
+const pagesInput    = document.getElementById("pages");
 
 let formError = false;
 let deleteBookCardBtn;
@@ -91,6 +91,7 @@ function addBookForm(event) {
     formContainer.style.visibility = "hidden";
     overlay.classList.remove("active");
     createBookCard();
+    resetForm();
   }
 }
 
@@ -106,6 +107,10 @@ function closeBookForm() {
   formContainer.style.visibility = "hidden";
   overlay.classList.remove("active");
 
+  resetForm();
+}
+
+function resetForm() {
   form.querySelector("#title").value  = "";
   form.querySelector("#author").value = "";
   form.querySelector("#pages").value  = "";
@@ -121,6 +126,9 @@ function closeBookForm() {
   formContainer.querySelector("#title").classList.remove("error-input-box", "correct-input-box");
   formContainer.querySelector("#author").classList.remove("error-input-box", "correct-input-box");
   formContainer.querySelector("#pages").classList.remove("error-input-box", "correct-input-box");
+  formContainer.querySelector(".title .validation_area ").classList.remove("correct-validation-area", "error-validation-area");
+  formContainer.querySelector(".author .validation_area ").classList.remove("correct-validation-area", "error-validation-area");
+  formContainer.querySelector(".pages .validation_area ").classList.remove("correct-validation-area", "error-validation-area");
 }
 
 function createBookCard() {
@@ -183,8 +191,8 @@ function validateForm() {
     formError = false;
   } 
   else if(titleInput.value==""){
-    titleInput.classList.remove("error-input-box correct-input-box");
-    formContainer.querySelector(".title .validation_area").classList.remove("correct-validation-area error-validation-area");
+    titleInput.classList.remove("error-input-box", "correct-input-box");
+    formContainer.querySelector(".title .validation_area").classList.remove("correct-validation-area", "error-validation-area");
     
     formError = true;
   }
@@ -206,8 +214,8 @@ function validateForm() {
     formError = false;
   } 
   else if(authorInput.value==""){
-    authorInput.classList.remove("error-input-box correct-input-box");
-    formContainer.querySelector(".author .validation_area").classList.remove("correct-validation-area error-validation-area");
+    authorInput.classList.remove("error-input-box", "correct-input-box");
+    formContainer.querySelector(".author .validation_area").classList.remove("correct-validation-area", "error-validation-area");
     
     formError = true;
   }
@@ -229,8 +237,8 @@ function validateForm() {
     formError = false;
   } 
   else if(pagesInput.value=="") {
-    pagesInput.classList.remove("error-input-box correct-input-box");
-    formContainer.querySelector(".pages .validation_area").classList.remove("correct-validation-area error-validation-area");
+    pagesInput.classList.remove("error-input-box", "correct-input-box");
+    formContainer.querySelector(".pages .validation_area").classList.remove("correct-validation-area", "error-validation-area");
     
     formError = true;
   }
@@ -245,8 +253,8 @@ function validateSubmitForm() {
       formError = true;
 
       const required = document.createElement("div");
-      required.classList.add("error-validation-area","required");
-      required.innerHTML = "<span>&#8226;</span> This is required field!";
+      required.classList.add("error-validation-area", "required");
+      required.innerHTML = "<span>&#8226;</span> This is a required field!";
       return required;
     }
   }

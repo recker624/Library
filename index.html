@@ -24,23 +24,23 @@
          <div class="heading">Add book</div>
          <div class="title">
             <label for="title">Title*</label>
-            <input type="text" name="title" id="title" required pattern="[A-Z]+[a-z]*(\s[A-Za-z]*)*" minlength="1" maxlength="25">
+            <input type="text" name="title" id="title" required pattern="[A-Z]{1}[a-z]*(\s?[A-Z]{1}[a-z]*)*\s*" minlength="1" maxlength="25">
             <div class="validation_area">
-              <div data-validation-type="alphabetCheck"><span>&#8226;</span> Only contain alphabets and use Capital Case.(Ex: Harry Potter)</div>
+              <div><span>&#8226;</span> Only contain alphabets and use Capital Case.(Ex: Harry Potter)</div>
             </div>
           </div>
          <div class="author">
             <label for="author">Author*</label>
             <input type="text" name="author" id="author" required pattern="[A-Z]{1}[a-z]*(\s?[A-Z]{1}[a-z]*)*\s*" minlength="1" maxlength="25">
               <div class="validation_area">
-                <div data-validation-type="alphabetCheck"><span>&#8226;</span> Only contain alphabets and use Capital Case. (Ex: JK Rowling)</div>
+                <div><span>&#8226;</span> Only contain alphabets and use Capital Case. (Ex: JK Rowling)</div>
               </div>
           </div>
          <div class="pages">
             <label for="pages">Pages*</label>
             <input type="number" name="pages" id="pages" min="0" max="2000" required>
             <div class="validation_area">
-              <div data-validation-type="rangeCheck"><span>&#8226;</span> Page count should be in the range of 1 to 2000</div>
+              <div><span>&#8226;</span> Page count should be in the range of 1 to 2000</div>
             </div>         
           </div>
          <div class="read-status">
