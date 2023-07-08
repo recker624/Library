@@ -9,12 +9,12 @@
 
 @font-face {
    font-family: "fancy-matter", sans-serif;
-   src: url('./Fonts/FancyMatterPersonalUse-lg5Ve.otf');
+   src: url('./Fonts/FancyMatterPersonalUse-lg5Ve.otf') format(otf);
 }
 
 @font-face {
    font-family: "mandhor", sans-serif;
-   src: url('./Fonts/Mandhor-ALEmp.otf');
+   src: url('./Fonts/Mandhor-ALEmp.otf') format(otf);
 }
 
 body {
