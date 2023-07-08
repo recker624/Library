@@ -8,13 +8,13 @@
 }
 
 @font-face {
-   font-family: "fancy-matter", sans-serif;
-   src: url('./Fonts/FancyMatterPersonalUse-lg5Ve.otf') format(otf);
+   font-family: 'fancy-matter';
+   src: url('./Fonts/FancyMatterPersonalUse-lg5Ve.otf') format('opentype');
 }
 
 @font-face {
-   font-family: "mandhor", sans-serif;
-   src: url('./Fonts/Mandhor-ALEmp.otf') format(otf);
+   font-family: 'mandhor';
+   src: url('./Fonts/Mandhor-ALEmp.otf') format('opentype');
 }
 
 body {
@@ -22,7 +22,7 @@ body {
 }
 
 nav {
-   background-color: #919191;
+   background-color: #3f3f3f;
    width: 100%;
    padding: 30px;
 
